@@ -1,0 +1,58 @@
+#session-head {
+  width: 85%;
+  margin: 0 auto;
+}
+
+#session-info {
+  width: 85%;
+  margin: 0 auto;
+  /* padding: 10px 0px; */
+}
+
+.current{
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sessions-list-name {
+  padding: 0px 20px;
+}
+
+.sessions-list h2 {
+  margin: 10px 0px;
+}
+
+.change-session-input {
+  padding: 0px 20px;
+}
+
+select,
+input {
+  outline: none;
+  width: 200px;
+  padding: 10px;
+  margin: 0px 5px;
+  font-size: 16px;
+  border: 2px solid var(--dark-grey);
+  border-radius: 8px;
+  transition: all 0.4s ease;
+}
+
+select:focus,
+input:focus {
+  border: 2px solid var(--dark);
+}
+
+#add-session {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.add-session-head{
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.add-session-input {
+  padding: 0px 20px;
+}

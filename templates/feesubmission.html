@@ -1,0 +1,126 @@
+{% extends 'index.html' %} {% load static %} {% block title %} FMS | Fee Submission 
+{% endblock title %} {% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/feesubmission.css' %}" />
+{% endblock extra_head %} 
+{% block content %}
+{% comment %} {% if messages %}
+    <script>
+      {% for message in messages %}
+        alert("{{ message }}");
+        document.location.href = "/fee/submit/";
+      {% endfor %}
+    </script>
+{% endif %} {% endcomment %}
+
+<!-- your classes heading -->
+<div class="back">
+  <span><i class="fas fa-angle-left"></i></span>
+  <h1>Fee Submission</h1>
+</div>
+<!-- <div class="component-back">
+  <h2>Fee Submission</h2>
+</div> -->
+
+<!-- Fee Submission head -->
+<section id="fee-submission-head">
+  <div class="component-back fee-submission-head">
+    <h2>Student details:</h2>
+    <div class="student-details">
+      <p>Admission Number: <span id="stud-add-no" class="faded">--</span></p>
+      <p>Name: <span id="stud-name" class="faded">--</span></p>
+      <p>Father's Name: <span id="stud-father-name" class="faded">--</span></p>
+      <p>Class: <span id="stud-class" class="faded">--</span></p>
+      <p>Fee Status: <span id="stud-fee-status" class="faded">Due</span></p>
+    </div>
+    <div class="student-details">
+      <p>
+        Total Session Fee: <span id="stud-total-session-fee" class="faded">&#8377;--/-</span>
+      </p>
+      <p>Fee Submitted: <span id="stud-fee-submitted" class="faded">&#8377;--/-</span></p>
+      <p>
+        Fee to be Submitted: <span id="stud-fee-left" class="faded">&#8377;--/-</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<datalist id="student-list">
+  <option value="195066">195066 | Mansi Garg | Rajendar Garg | C-9</option>
+  {% for student in students %}
+  <option value="{{student.add_no}}">{{student.add_no}} | {{student.fname}} | {{student.fathername}} | 
+    C-{{student.Class.clas}}</option>
+  {% endfor %}
+</datalist>
+<section id="fee-submit-details">
+  <div class="fee-submit-details">
+    <h2>Fee Submission Details:</h2>
+    <form method="post" action="{% url 'fee:feeSubmit' %}" autocomplete="off">
+      {% csrf_token %}
+      <div class="fee-submit-upper-input">
+        <div class="fee-submit-date">
+          <label for="fee-submit-date">Fee Submit Date:</label>
+          <input id="fee-submit-date" type="date" name="submit_date" value="{{today_date}}">
+        </div>
+        <div class="fee-submit-memo fee-submit-date">
+          <label for="fee-submit-memo">Memo Number:</label>
+          <input id="fee-submit-memo" type="number" name="memo_no" value="{{curr_memo_no}}">
+        </div>
+      </div>
+      <div class="fee-detail-input">
+        <input
+          type="text"
+          placeholder="Search Student by Add. No., Name, Class:"
+          list="student-list"
+          name="student"
+          onkeyup="keyPress(event)"
+        />
+        <input type="number" placeholder="Enter Amount: (in Rupees)" name="amount" />
+        <button type="submit" class="btn btn-black">Submit</button>
+      </div>
+      <button type="button" class="btn" onclick="addMisc(event)">Miscellaneous Fee</button>
+      <button type="button" class="btn" onclick="addCheque(event)">Add Cheque</button>
+      <button type="button" class="btn" onclick="addOnlinePay(event)">Add Online/NEFT Pay</button>
+      <div class="fee-cheque-details">
+        <input type="number" name="cheque_no" placeholder="Cheque Number:" />
+        <input type="text" name="issued_by" placeholder="Cheque Issue By:" />
+        <input type="text" name="bank" placeholder="Bank Name:" />
+        <!-- <label for="issue_date">Cheque Issue Date:</label> -->
+        <input type="date" name="issue_date" placeholder="Cheque Issue Date:" />
+      </div>
+      <div class="fee-cheque-details online-pay">
+        <input type="text" name="utr_no" placeholder="UTR Number:" />
+        <input type="text" name="pay_by" placeholder="Pay By:" />
+        <input type="date" name="pay_date" />
+        <!-- <input type="date" placeholder="Cheque Issue Date:" /> -->
+      </div>
+      <div id="misc-fees">
+        <div class="fee-cheque-details misc-fee">
+          <i class="fas fa-minus-circle minus-more-misc" onclick="minusMisc(event)"></i>
+          <select name="misc-type" id="miscellaneous-type">
+            <option value="None" selected>Select Miscellaneous</option>
+            <option value="Admission Fee">Admission Fee</option>
+            <option value="Registration Fee">Registration Fee</option>
+            <option value="Late Fee">Late Fee</option>
+            <option value="Fine">Fine</option>
+            <option value="Other">Other</option>
+          </select>
+          <input type="number" name="misc-amount" placeholder="Amount:" />
+          <input type="text" name="misc-reason" placeholder="Reason:" />
+          <i class="fas fa-plus-circle add-more-misc" onclick="plusMisc(event)"></i>
+        </div>
+      </div>
+      <input type="hidden" name="mop" id="fee-mop" value="Cash">
+    </form>
+  </div>
+</section>
+{% endblock content %} {% block script %}
+{% comment %} <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"
+  integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script> {% endcomment %}
+<script src="{% static 'js/axios.min.js' %}"></script>
+<script src="{% static 'js/feesubmission.js' %}"></script>
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

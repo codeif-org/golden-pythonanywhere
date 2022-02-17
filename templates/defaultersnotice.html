@@ -1,0 +1,48 @@
+{% extends 'index.html' %} {% load static %} {% block title %} FMS | Fee Submission 
+{% endblock title %} {% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/feesubmission.css' %}" />
+{% endblock extra_head %} 
+{% block content %}
+<!-- {% if messages %}
+    <script>
+      {% for message in messages %}
+        alert("{{ message }}");
+        document.location.href = "/fee/submit/";
+      {% endfor %}
+    </script>
+{% endif %} -->
+
+<section id="defaulters-notice">
+  <div class="component-back defaulters-notice-head">
+    <h1>Defaulters Notice</h1>
+    <button class="btn btn-black" onclick="printNotices(event)">Print Notice</button>
+  </div>
+  <div class="defaulters-notice-list">
+    {% for key, value in defaulters_dict.items %}
+    <div class="notice">
+      <div class="notice-head">
+        <h3><u>Golden Heights School</u></h3>
+        <h3><u>Notice</u></h3>
+        <p>Dear Parents, <br>
+          We request you to clear your ward, {{key.student.fname}}'s s/o or d/o Mr. 
+          {{key.student.fathername}} of class {{key.student.Class.clas}} outstanding fee of Rs. {{value.0}}.00/- for months {{value.1}} as soon as possible to avoid any inconvenience. <br>
+          Thanks and Regards
+        </p>
+      </div>
+    </div>
+    <hr />
+    {% endfor %}
+  </div>
+</section>
+
+
+{% endblock content %} {% block script %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"
+  integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script src="{% static 'js/printOutline.js' %}"></script>
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

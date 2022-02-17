@@ -1,0 +1,98 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+    Fee Edit
+{% endblock title %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/attendance.css' %}" />
+<link rel="stylesheet" href="{% static '/css/teacherExam.css' %}" />
+<link rel="stylesheet" href="{% static '/css/editfee.css' %}" />
+{% endblock extra_head %}
+{% block content %}
+<section id="main">
+ <!-- Start attendance -->
+ <section id="start-att">
+    <div class="component-back">
+      <div>
+        <h2>Edit Fee Structure for month: <span class="faded">{{month}}</span></h2>
+        <p>Class {{ class.clas }}</p>
+      </div>
+      <!-- <a href="/createExam.html"
+        ><button class="btn btn-lg">Create</button></a
+      > -->
+    </div>
+    <div class="exam-list-txt flex">
+      <h2>Total Fee: <span>&#8377;</span> {{total_month_fee}}.00</h2>
+      <!-- <div class="flex">
+        <div>
+          <i class="fas fa-angle-double-right"></i>
+          <button class="btn btn-black">Class</button>
+        </div>
+        <div style="margin-left: 20px">
+          <i class="fas fa-angle-double-right"></i>
+          <button class="btn btn-black">Subject</button>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- Student List -->
+  <section id="home-menu">
+    <div class="home-menu">
+      <div class="menu-list tech-exam-list">
+        <div class="fee-table-head">
+          <p>Fee Name</p>
+          <p>Fee Amount</p>
+        </div>
+      </div>
+      <div id="main-fee-struct">
+        <div class="menu-list tech-exam-list editFee-menu-list">
+            {% for fee in month_fee %}
+          <div class="fee-struct-entry">
+            <div class="fee-data-edit">
+              <p>Last Updated: {{ fee.last_updated }}</p>
+              <div>
+                <button class="btn btn-black" onclick="editFee(event, {{fee.id}})">
+                  <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="btn btn-black" onclick="deleteFee(event, {{fee.id}})">
+                  <i class="fas fa-trash-alt"></i>Delete
+                </button>
+              </div>
+            </div>
+            <div class="fee-data">
+              <h3 class="fee-name">{{ forloop.counter }}. <span>{{ fee.fee_type }}</span></h3>
+              <h3 class="fee-amount"><span>&#8377; </span><span>{{ fee.amount }}.00</span></h3>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        
+        <!-- <div class="menu-list tech-exam-list add-fee-input">
+          <form action="">
+            <input type="text" placeholder="Fee Name">
+            <input type="number" placeholder="Fee Amount (in Rupees)">
+            <div>
+              <button type="submit" class="btn">OK</button>
+              <button type="reset" class="btn">Cancel</button>
+            </div>
+          </form>
+        </div> -->
+      </div>
+      <div class="add-extra-fee">
+        <button class="btn btn-green" onclick="addFee(event)">Add Fee</button>
+      </div>
+    </div>
+  </section>
+</section>
+{% endblock content %}
+{% block script %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"
+  integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script src="{% static 'js/feestruct.js' %}"></script>
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

@@ -1,0 +1,185 @@
+#fee-submission-head,
+#fee-submit-details {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.fee-submission-head {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: baseline; */
+  align-items: baseline;
+}
+
+.student-details {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px 0;
+}
+
+.student-details p {
+  font-weight: bolder;
+}
+
+.student-details span {
+  font-weight: normal;
+}
+
+.fee-submit-details {
+  margin: 20px 0px;
+}
+
+.fee-submit-details input[type="text"],
+input[type="number"],
+input[type="date"] {
+  outline: none;
+  width: 30%;
+  padding: 10px;
+  margin: 0px 5px;
+  font-size: 16px;
+  border: 2px solid var(--dark-grey);
+  border-radius: 8px;
+  transition: all 0.4s ease;
+}
+
+.fee-submit-details input[type="text"]{
+  width: 80%;
+}
+
+.fee-submit-details input[type="text"]:focus,
+input[type="number"]:focus {
+  border: 2px solid var(--dark);
+  border-radius: 8px;
+  /* width: 80%; */
+}
+
+.fee-cheque-details input{
+  width: 20% !important;
+}
+
+/* .fee-cheque-details input:focus{
+  width: 20%;
+} */
+
+.fee-detail-input {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 30px 0;
+}
+
+.fee-cheque-details {
+  width: 100%;
+  margin: 20px 0px;
+  display: none;
+}
+
+/* .fee-cheque-details input[type="text"]:focus,
+.fee-cheque-details input[type="number"]:focus,
+.fee-cheque-details input[type="date"]:focus {
+  width: 30%;
+} */
+
+.online-pay {
+  display: none;
+}
+
+/* .student-details .faded{
+    display: none;
+} */
+
+/* concession */
+#add-concession {
+  width: 85%;
+  margin: 0 auto;
+  /* display: none; */
+}
+
+.add-concession {
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.concession-form-group {
+  margin: 10px 0;
+}
+
+input[type="text"], select, textarea {
+  outline: none;
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid var(--dark-grey);
+  border-radius: 8px;
+  transition: all 0.4s ease;
+}
+
+input[type="text"]:focus, select:focus, textarea:focus, input[type="date"]:focus {
+  border: 2px solid var(--dark);
+  border-radius: 8px;
+}
+
+textarea {
+  height: 40px;
+  width: 400px;
+}
+
+.hidden{
+  display: none;
+}
+
+
+.fee-submit-date input{
+  width: auto;
+  height: auto;
+  margin: 10px 5px;
+  margin-bottom: 0px;
+  padding: 5px;
+
+}
+
+.fee-submit-upper-input{
+  display: flex;
+}
+
+.fee-submit-memo{
+  margin: 0px 10px;
+}
+
+/* Defaulters Notice */
+#defaulters-notice {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.defaulters-notice-list{
+  text-align: center;
+}
+
+.defaulters-notice-list p{
+  text-align: left;
+}
+
+.notice{
+  margin: 30px 0;
+}
+
+hr{
+  height: 0px;
+  border-top: dashed 3px;
+  border-bottom: dashed 0px;
+}
+
+.minus-more-misc{
+  color: rgba(255, 0, 0, 0.797);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.add-more-misc{
+  color: var(--light-green);
+  /* color: green; */
+  font-size: 20px;
+  cursor: pointer;
+}

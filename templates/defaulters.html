@@ -1,0 +1,105 @@
+{% extends 'index.html' %} {% load static %} {% block title %} FMS | Defaulters
+{%endblock title %} {% block css %}
+<link rel="stylesheet" href="{% static '/css/style.css' %}" />
+<link rel="stylesheet" href="{% static '/css/attendance.css' %}" />
+<link rel="stylesheet" href="{% static '/css/teacherExam.css' %}" />
+<link rel="stylesheet" href="{% static '/css/progress.css' %}" />
+<link rel="stylesheet" href="{% static '/css/adminList.css' %}" />
+<link rel="stylesheet" href="{% static '/css/studentList.css' %}" />
+{% endblock css %} {% block content %}
+<section id="main">
+  <section id="list-hero">
+    <div class="component-back">
+      <h1>Defaulters List:</h1>
+      <a href="{% url 'reports:defaultersNotice' %}"><button class="btn btn-black">Generate Defaulters Notice</button></a>
+    </div>
+    <div class="menu-list list-hero">
+      <div class="list-hero-search">
+        <h2>Search Student:</h2>
+        <input
+          type="text"
+          id="search-add-no"
+          placeholder="Admission Number..."
+          onkeyup="searchStud(event, 3)"
+        />
+        <input
+          type="text"
+          id="search-name"
+          placeholder="Name..."
+          onkeyup="searchStud(event, 5)"
+        />
+        <input
+          type="text"
+          id="search-class"
+          placeholder="Class..."
+          onkeyup="searchStud(event, 9)"
+        />
+        <input
+          type="text"
+          id="search-due-months"
+          placeholder="Due Months..."
+          onkeyup="searchStud(event, 11)"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section id="admin-stud-list">
+    <div class="admin-stud-list">
+      <h2>Click on any student to view info:</h2>
+      <div class="student-table-list">
+        <table id="student-table">
+          <tr>
+            <th>Sr. No.</th>
+            <th>Add. No.</th>
+            <th>Name</th>
+            <th>Father's Name</th>
+            <th>Class</th>
+            <th>Due Months</th>
+            <th>Due Amount</th>
+            <th>Fee Status</th>
+          </tr>
+          {% for student in students %}
+          <tr
+            onclick="document.location = '{% url 'school:studentoutline' student.id %}';"
+            tabindex="forloop.counter"
+          >
+            <td>{{ student.add_no }}</td>
+            <td>{{ student.fname }}</td>
+            <td>{{ student.Class.clas }}</td>
+            <td>Paid</td>
+          </tr>
+          {% endfor %} {% for key, value in defaulters_dict.items %} 
+          {% comment%} {{key.student.fname}}, {{value}} {% endcomment %}
+          <tr
+            onclick="document.location = '{% url 'school:studentoutline' key.student.id %}';"
+          >
+            <td>{{forloop.counter}}</td>
+            <td>{{key.student.add_no}}</td>
+            <td>{{key.student.fname}}</td>
+            <td>{{key.student.fathername}}</td>
+            <td>{{key.student.Class.clas}}</td>
+            <td>{{value.1}}</td>
+            <td>{{value.0}}.00/-</td>
+            <td>Due</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </section>
+</section>
+{% endblock content %} {% block script %}
+<script>
+  let submitHandler = function (event) {
+    console.log(event.target.value);
+  };
+</script>
+
+<!-- <script src="../js/adminList.js"></script> -->
+{% comment %}
+<script src="js/searchStudent.js"></script>
+{% endcomment %}
+<script src="{% static 'js/searchStudent.js' %}"></script>
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

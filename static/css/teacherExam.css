@@ -1,0 +1,71 @@
+.exam-list-txt {
+  padding: 0px 16px;
+  align-items: center;
+}
+
+.tech-exam-list {
+  flex-direction: column;
+}
+
+.tech-exam-list > * {
+  margin: 8px 0px;
+}
+
+.tech-exam-list > div:nth-child(1) {
+  align-self: baseline;
+}
+
+.exam-data {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: right;
+}
+
+
+.exam-desc > h3:hover {
+  color: var(--dark-green);
+}
+
+.exam-desc {
+  text-align: left;
+}
+
+/* marks edit html marksEdit.html */
+.marks-stud-list p {
+  font-size: 18px;
+}
+
+.fa-edit,
+.fa-check {
+  margin: 0px 10px;
+}
+
+.fa-edit:hover,
+.fa-check:hover {
+  color: var(--dark-green);
+  cursor: pointer;
+}
+
+.fa-check{
+  font-size: 30px;
+}
+
+.marks-stud-list{
+  transition: all 2s ease 0s;
+}
+
+.marks-stud-list input[type="text"]{
+  outline: none;
+  width: 70px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid var(--dark-grey);
+  border-radius: 8px;
+  transition: all 0.1s ease;
+}
+
+.marks-stud-list input[type="text"]:focus {
+  border: 2px solid var(--dark);
+  border-radius: 8px;
+}

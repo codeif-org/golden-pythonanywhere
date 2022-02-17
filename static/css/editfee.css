@@ -1,0 +1,73 @@
+.fee-table-head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.editFee-menu-list{
+  display: block;
+}
+
+.fee-struct-entry{
+  margin: 15px 0px;
+}
+
+.fee-data-edit {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 10px 0;
+}
+
+.btn {
+  min-width: 40px;
+}
+
+.fee-data-edit .fa-edit,
+.fee-data-edit .fa-trash-alt {
+  margin: 0px 5px;
+}
+
+.fa-edit:hover {
+  color: #fff;
+}
+
+.fee-data {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fee-data h3 {
+  font-size: 18px;
+}
+
+.add-extra-fee {
+  align-self: end;
+}
+
+.add-fee-input {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add-fee-input input[type="text"],
+.add-fee-input input[type="number"] {
+  outline: none;
+  width: 30%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid var(--dark-grey);
+  border-radius: 8px;
+  transition: all 0.1s ease;
+}
+
+.add-fee-input input[type="text"]:focus,
+.add-fee-input input[type="number"]:focus {
+  border: 2px solid var(--dark);
+  border-radius: 8px;
+}
+

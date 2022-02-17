@@ -1,0 +1,124 @@
+{% extends 'index.html' %} {% load static %} {% block title %} FMS | Fee
+Submission {% endblock title %} {% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/ExamForm.css' %}" />
+{% endblock extra_head %} {% block content %}
+<section class="exam-form">
+  <div class="component-back">
+    <!-- <a href="/addStudents.html">
+      <h2><i class="fas fa-arrow-left"></i> back</h2></a
+    > -->
+    <h1>Add Student:</h1>
+  </div>
+  <div class="main-exam-form">
+    <form action="{% url 'school:studentAdd' %}" method="post">
+      {% csrf_token %}
+      <div class="form-input">
+        <h3>Admission No.*:</h3>
+        <input type="text" name="add_no" />
+      </div>
+      <div class="form-input">
+        <h3>Name*:</h3>
+        <input type="text" name="name" />
+      </div>
+      <div class="form-input">
+        <h3>Father's Name*:</h3>
+        <input type="text" name="fathername" />
+      </div>
+      <div class="form-input">
+        <h3>Class*:</h3>
+        <!-- <input type="text" name="fathname" /> -->
+        <select name="class" id="student-class">
+          <option value="">Select Class</option>
+          {% for class in class_qs %}
+          <option value="{{class.id}}">{{class.clas}}</option>
+          {% endfor %}
+          {% comment %} <option value="">9</option> {% endcomment %}
+        </select>
+      </div>
+      <div class="form-input">
+        <h3>Class Roll No.:</h3>
+        <input type="number" name="roll" />
+      </div>
+      <!-- <div class="form-input">
+        <h3>Middle Name:</h3>
+        <input type="text" name="mname" />
+      </div>
+      <div class="form-input">
+        <h3>Last Name*:</h3>
+        <input type="text" name="lname" />
+      </div> -->
+      <div class="form-input">
+        <h3>Date of Birth:</h3>
+        <input type="date" name="dob" value="2022-1-1" />
+      </div>
+      <div class="form-input">
+        <h3>Gender:</h3>
+        <select name="gender" id="student-gender">
+          <option value="">Select Gender</option>
+          <option value="MALE">MALE</option>
+          <option value="FEMALE">FEMALE</option>
+          <option value="OTHER">OTHER</option>
+        </select>
+      </div>
+      <div class="form-input">
+        <h3>Religion:</h3>
+        <select name="religion" id="student-religion">
+          <option value="">Select Religion</option>
+          <option value="HINDU">HINDU</option>
+          <option value="MUSLIM">MUSLIM</option>
+          <option value="SIKH">SIKH</option>
+          <option value="CHRISTIAN">CHRISTIAN</option>
+          <option value="OTHER">OTHER</option>
+        </select>
+      </div>
+      <div class="form-input">
+        <h3>Category:</h3>
+        <select name="category" id="student-category">
+          <option value="">Select Category</option>
+          <option value="GEN">GEN</option>
+          <option value="GEN-EWS">GEN-EWS</option>
+          <option value="OBC">OBC</option>
+          <option value="OBC-NCL">OBC-NCL</option>
+          <option value="SC">SC</option>
+          <option value="ST">ST</option>
+          <option value="OTHER">OTHER</option>
+        </select>
+      </div>
+      <div class="form-input">
+        <h3>Phone Number:</h3>
+        <input type="tel" name="phone" />
+      </div>
+      <div class="form-input">
+        <h3>Email:</h3>
+        <input type="email" name="email" />
+      </div>
+      <div class="form-input">
+        <h3>Address:</h3>
+        <input type="text" name="address" />
+      </div>
+      <!-- <div class="form-input">
+        <h3>Mother's Name</h3>
+        <input type="text" name="mothername" />
+      </div> -->
+      <!-- <div class="form-input">
+        <h3>Parent Phone*:</h3>
+        <input type="tel" name="phone2" />
+      </div>
+      <div class="form-input">
+        <h3>Parent Email:</h3>
+        <input type="email" name="pemail" />
+      </div> -->
+      <button type="submit" class="btn btn-md">Add Student</button>
+    </form>
+  </div>
+</section>
+{% endblock content %} {% block script %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"
+  integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script src="{% static 'js/feesubmission.js' %}"></script>
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

@@ -1,0 +1,37 @@
+{% extends 'index.html' %} {% load static %} {% block title %} FMS | Fee
+Submission {% endblock title %} {% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/backup.css' %}" />
+{% endblock extra_head %} {% block content %}
+
+<section id="backup-head" class="component-back">
+  <h1>Take Backup: <button class="btn" onclick="getBackup(event)">Click to Backup</button></h1>
+  <p id="backup-wait" style="display: none;">Please Wait!</p>
+  <p id="latest-backup" style="display: none;"><a id="latest-backup-link" href="" target="_blank" download>Click here to download latest backup</a></p>
+</section>
+
+<section id="last-backup">
+  <div class="last-backup">
+    <div class="last-back-common-head component-back">
+      <h2>Last Backups:</h2>
+      <p>*Following backups are downloadable</p>
+    </div>
+    <div class="last-backups">
+      {% for key, value in backup_dict.items %}
+      <p class="backup-item"><a href="{{value.0}}" download>{{forloop.counter}}. {{value.1}}</a></p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock content %} {% block script %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"
+  integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script src="{% static 'js/backup.js' %}"></script>
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

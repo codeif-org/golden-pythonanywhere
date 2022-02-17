@@ -1,0 +1,89 @@
+{% extends 'index.html' %} {% load static %} {% block title %} FMS | Fee
+Submission {% endblock title %} {% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/ExamForm.css' %}" />
+{% endblock extra_head %} {% block content %}
+<section class="exam-form">
+  <div class="component-back">
+    <!-- <a href="/addStudents.html">
+      <h2><i class="fas fa-arrow-left"></i> back</h2></a
+    > -->
+    <h1>Edit Student:</h1>
+  </div>
+  <div class="main-exam-form">
+    <form action="{% url 'school:studentEdit' student.id %}" method="post" novalidate>
+      {% csrf_token %}
+      <div class="form-input">
+        <h3>Admission No.*:</h3>
+        <input type="text" name="add_no" value="{{student.add_no}}" />
+      </div>
+      <div class="form-input">
+        <h3>Name*:</h3>
+        <input type="text" name="name" value="{{student.fname}}" />
+      </div>
+      <div class="form-input">
+        <h3>Father's Name*:</h3>
+        <input type="text" name="fathername" value="{{student.fathername}}" />
+      </div>
+      {% comment %} <div class="form-input">
+        <h3>Class*:</h3>
+        <select name="class" id="student-class" >
+          <option value="">Select Class</option>
+          {% for class in class_qs %}
+          <option value="{{class.id}}">{{class.clas}}</option>
+          {% endfor %}
+        </select>
+      </div> {% endcomment %}
+      <div class="form-input">
+        <h3>Class Roll No.:</h3>
+        <input type="number" name="roll" value="{{student.roll}}" />
+      </div>
+      <!-- <div class="form-input">
+        <h3>Middle Name:</h3>
+        <input type="text" name="mname" />
+      </div>
+      <div class="form-input">
+        <h3>Last Name*:</h3>
+        <input type="text" name="lname" />
+      </div> -->
+      <div class="form-input">
+        <h3>Date of Birth:</h3>
+        <input type="date" name="dob" value="{{student_dob}}" />
+      </div>
+      <div class="form-input">
+        <h3>Phone Number:</h3>
+        <input type="tel" name="phone" value="{{student.phone}}" />
+      </div>
+      <div class="form-input">
+        <h3>Email:</h3>
+        <input type="email" name="email" value="{{student.email}}" />
+      </div>
+      <div class="form-input">
+        <h3>Address:</h3>
+        <input type="text" name="address" value="{{student.address}}" />
+      </div>
+      <!-- <div class="form-input">
+        <h3>Mother's Name</h3>
+        <input type="text" name="mothername" />
+      </div> -->
+      <!-- <div class="form-input">
+        <h3>Parent Phone*:</h3>
+        <input type="tel" name="phone2" />
+      </div>
+      <div class="form-input">
+        <h3>Parent Email:</h3>
+        <input type="email" name="pemail" />
+      </div> -->
+      <button type="submit" class="btn btn-md">Edit Student</button>
+    </form>
+  </div>
+</section>
+{% endblock content %} {% block script %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"
+  integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+{% comment %} <script src="{% static 'js/feesubmission.js' %}"></script> {% endcomment %}
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

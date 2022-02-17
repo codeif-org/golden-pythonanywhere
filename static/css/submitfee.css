@@ -1,0 +1,97 @@
+#student-outline-head {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.student-outline-head {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: baseline; */
+  align-items: baseline;
+}
+
+.student-details {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px 0;
+}
+
+/* submitted fees */
+#submitted-fees,
+#submit-fees {
+  width: 85%;
+  margin: 20px auto;
+}
+
+.submitted-fee-table {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.submitted-fee-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 1px;
+  text-align: center;
+}
+
+.submitted-fee-table table th {
+  background-color: var(--light-grey);
+  /* color: white; */
+  padding: 10px;
+}
+
+.submitted-fee-table table tr {
+  border-bottom: 1px solid var(--dark-grey);
+}
+
+.submitted-fee-table table td {
+  padding: 10px;
+}
+
+.submitted-fee-table table tr:hover {
+  background-color: var(--light-grey);
+  cursor: pointer;
+}
+
+.submitted-fee-table table i {
+  color: lightgreen;
+}
+
+/* fees to be submitted */
+/* .submitted-fee-table table tr:nth-child(odd){
+      background-color: var(--light-grey);
+  } */
+.submitted-fee-table input[type="checkbox"] {
+  width: 50px;
+  height: 15px;
+}
+
+.submit-fee-btn {
+  margin: 20px 0px;
+  align-self: flex-end;
+}
+
+.submitted-fee-table form {
+  display: flex;
+  flex-direction: column;
+}
+
+td a{
+  color: var(--dark);
+}
+
+#delete-stud{
+  width: 85%;
+  margin: 30px auto;
+}
+
+#delete-stud button{
+  background-color: rgb(216, 4, 4);
+}
+
+#add-misc{
+  width: 85%;
+  margin: 30px auto;
+}

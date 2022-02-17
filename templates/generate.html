@@ -1,0 +1,175 @@
+{% extends 'index.html' %} {% load static %} {% block title %} FMS | Reports
+Generate {% endblock title %} {% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/reports.css' %}" />
+{% endblock extra_head %} {% block content %}
+
+<!-- Reports -->
+<section id="reports-head" class="reports-head">
+  <div class="component-back">
+    <h2>Generate Reports:</h2>
+  </div>
+</section>
+
+<!-- Day wise report -->
+<!-- select date and generate report -->
+<section id="day-wise-report">
+  <div class="day-wise-report-head component-back">
+    <h2>Day wise report:</h2>
+  </div>
+  <div class="day-wise-report-suggest">
+    <button class="btn btn-black" onclick="todayDayRep(event)">Today</button>
+    <button class="btn btn-black">Yesterday</button>
+  </div>
+  <div class="day-wise-report-date-select">
+    <h3>Select Date:</h3>
+    <input id="day-wise-report-date-input" type="date" />
+    <button class="btn" onclick="generateRep(event)">Generate</button>
+  </div>
+  <div class="report-wait">
+    <h3>Please Wait! Report is being prepared...</h3>
+  </div>
+  <div id="generated-report-day" class="generated-report">
+    <h2>
+      Report for Dated
+      <span id="day-report-date-display" class="faded">22-01-2020</span>
+      Generated Successfully!
+    </h2>
+    <p>
+      <a id="day-report-download-link" href="" download
+        >Click Here to Download Report</a
+      >
+    </p>
+  </div>
+</section>
+
+<hr />
+
+<!-- Date wise report -->
+<!-- select date range and generate report -->
+<section id="day-wise-report">
+  <div class="day-wise-report-head component-back">
+    <h2>Date wise report:</h2>
+  </div>
+  <!-- <div class="day-wise-report-suggest">
+    <button class="btn btn-black">Today</button>
+    <button class="btn btn-black">Yesterday</button>
+  </div> -->
+  <div class="day-wise-report-date-select">
+    <h3>Select Date Range:</h3>
+    <input id="date-wise-report-start-date-input" type="date" /> &#8211;
+    <input id="date-wise-report-end-date-input" type="date" />
+    <button class="btn" onclick="generateDateRep(event)">Generate</button>
+  </div>
+  <div class="report-wait">
+    <h3>Please Wait! Report is being prepared...</h3>
+  </div>
+  <div
+    id="generated-report-date"
+    class="generated-report"
+  >
+    <h2>
+      Report for Date Range:
+      <span id="date-report-start-date-display" class="faded">22-01-2020</span>
+      to
+      <span id="date-report-end-date-display" class="faded">22-01-2020</span>
+      Generated Successfully!
+    </h2>
+    <p>
+      <a id="date-report-download-link" href="" download
+        >Click Here to Download Report</a
+      >
+    </p>
+  </div>
+</section>
+
+<hr />
+
+<!-- Date wise report -->
+<!-- select date range and generate report -->
+<section id="day-wise-report">
+  <div class="day-wise-report-head component-back">
+    <h2>Date wise report (with details):</h2>
+  </div>
+  <!-- <div class="day-wise-report-suggest">
+    <button class="btn btn-black">Today</button>
+    <button class="btn btn-black">Yesterday</button>
+  </div> -->
+  <div class="day-wise-report-date-select">
+    <h3>Select Date Range:</h3>
+    <input id="date-wise-with-detail-report-start-date-input" type="date" /> &#8211;
+    <input id="date-wise-with-detail-report-end-date-input" type="date" />
+    <button class="btn" onclick="generateDateWithDRep(event)">Generate</button>
+  </div>
+  <div class="report-wait">
+    <h3>Please Wait! Report is being prepared...</h3>
+  </div>
+  <div
+    id="generated-report-date-with-detail"
+    class="generated-report"
+  >
+    <h2>
+      Report for Date Range:
+      <span id="date-with-detail-report-start-date-display" class="faded">22-01-2020</span>
+      to
+      <span id="date-with-detail-report-end-date-display" class="faded">22-01-2020</span>
+      Generated Successfully!
+    </h2>
+    <p>
+      <a id="date-with-detail-report-download-link" href="" download
+        >Click Here to Download Report</a
+      >
+    </p>
+  </div>
+</section>
+
+<hr />
+
+<!-- Day wise report -->
+<!-- select date and generate report -->
+<section id="day-wise-report">
+  <div class="day-wise-report-head component-back">
+    <h2>Students Cumulative report:</h2>
+  </div>
+  <div class="day-wise-report-suggest">
+    <button class="btn btn-black" onclick="allClassStudCumRep(event)">Generate for all students</button>
+    <!-- <button class="btn btn-black">Yesterday</button> -->
+  </div>
+  <div class="day-wise-report-date-select">
+    <h3>Select Class:</h3>
+    <!-- <input id="day-wise-report-date-input" type="date" /> -->
+    <select name="class-report" id="select-class-report">
+      <option value="">Select Class</option>
+      <option value="all">All Classes</option>
+      {% for class in class_qs %}
+        <option value="{{class.id}}">{{class.clas}}</option>
+      {% endfor %}
+    </select>
+    <button class="btn" onclick="generateStudCumRep(event)">Generate</button>
+  </div>
+  <div class="report-wait">
+    <h3>Please Wait! Report is being prepared...</h3>
+  </div>
+  <div id="generated-report-stud-cum" class="generated-report">
+    <h2>
+      Students Cumulative Report for Class:
+      <span id="stud-cum-report-class-display" class="faded">9</span>
+      Generated Successfully!
+    </h2>
+    <p>
+      <a id="stud-cum-report-download-link" href="" download
+        >Click Here to Download Report</a
+      >
+    </p>
+  </div>
+</section>
+
+{% endblock content %} {% block script %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"
+  integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script src="{% static 'js/reports.js' %}"></script>
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

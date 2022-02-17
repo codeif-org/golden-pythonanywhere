@@ -1,0 +1,38 @@
+{% extends 'index.html' %} {% load static %} {% block title %}FMS | Select
+Class{% endblock title %} {% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/YourClasses.css' %}" />
+{% endblock extra_head %} {% block content %}
+<!-- your classes heading -->
+<div class="class-heading">
+  <span><i class="fas fa-angle-left"></i></span>
+  <h1>Fee Structure</h1>
+</div>
+
+<!-- class teacher -->
+<section class="class-teacher">
+  <div class="component-back">
+    <h2>Select Class for Fee Structure</h2>
+    <!-- <a href="/addStudents.html"
+      ><button class="btn btn-md">Class 9th</button></a
+    > -->
+  </div>
+</section>
+
+<!-- other classes -->
+<section class="All-classes">
+  <div class="component-back">
+    <div class="all-class-heading"><h2>All classes</h2></div>
+    <div class="all-class-buttons">
+      {% for class in classes %}
+      <a href="{% url 'fee:selectMonth' class.id %}">
+        <button class="btn btn-md class-btn">{{class.clas}} class</button>
+      </a>
+      {% endfor %}
+      <!-- <a href="/feemonth.html"
+        ><button class="btn btn-md class-btn">7th class</button></a
+      > -->
+    </div>
+  </div>
+</section>
+{% endblock content %}
+{% block activity_log %}{% endblock activity_log %}

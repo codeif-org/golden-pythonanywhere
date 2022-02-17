@@ -1,0 +1,380 @@
+{% extends 'index.html' %} {% load static %} {% block title %} 
+Fee Receipt | {{student.add_no}}
+{%endblock title %} {% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/submitfee.css' %}" />
+<link rel="stylesheet" href="{% static '/css/feesubmission.css' %}" />
+{% endblock extra_head %} {% block content %}
+<section id="main">
+  <!-- All Classes -->
+  <section id="student-outline-head">
+    <div class="component-back student-outline-head">
+      <h2>Student Outline:</h2>
+      <div class="student-details">
+        <p>
+          Admission Number: <span class="faded"> {{ student.add_no }} </span>
+        </p>
+        <p>Name: <span class="faded">{{ student.fname }}</span></p>
+        <p>
+          Father's Name: <span class="faded">{{ student.fathername }}</span>
+        </p>
+        <p>Class: <span class="faded"> {{ student.Class.clas }} </span></p>
+        {% comment %} <p>Fee Status: <span class="faded">Due</span></p> {% endcomment %}
+      </div>
+      <div class="student-details">
+        <p>
+          Total Session Fee: <span class="faded">&#8377;{{ total }}.00/-</span>
+        </p>
+        <p>
+          Fee Submitted: <span class="faded">&#8377;{{ sub_fee }}.00/-</span>
+        </p>
+        <p>
+          Fee to be Submitted:
+          <span class="faded">&#8377;{{ rem_fee }}.00/-</span>
+        </p>
+      </div>
+    </div>
+    <div class="student-outline-head-buttons">
+      <button
+        class="btn"
+        onclick="document.location = '{% url 'school:studentEdit' student.id %}';"
+      >
+        Edit Profile
+      </button>
+      <!-- <button class="btn" onclick="addMisc(event)">Add Miscellaneous</button> -->
+      <button class="btn" onclick="addConcession(event)">Add Concession</button>
+      <button class="btn" onclick="printOut(event)">Print Transactions</button>
+    </div>
+  </section>
+
+  <!-- Add Concession -->
+  <section id="add-concession" class="hidden">
+    <div class="component-back add-concession">
+      <h2>Add Concession</h2>
+      <form method="post" action="{% url 'fee:feeConcession' %}">
+        {% csrf_token %}
+        <div class="concession-form-group">
+          <label for="concession-type">Concession Type</label>
+          <select
+            name="concession-type"
+            id="concession-type"
+            class="form-control"
+          >
+            <option value="None" selected>Select Concession:</option>
+            <option value="Free">Free</option>
+            <option value="Discount">Discount</option>
+            <option value="Scholarship">Scholarship</option>
+            <option value="Fine">Fine</option>
+          </select>
+        </div>
+        <div class="concession-form-group">
+          <label for="concession-amount">Concession Amount: </label>
+          <input
+            type="text"
+            name="amount"
+            id="concession-amount"
+            class="form-control"
+            placeholder="Amount"
+          />
+        </div>
+        <div class="concession-form-group">
+          <label for="concession-textarea">Concession Reason: </label>
+          <textarea
+            name="reason"
+            id="concession-textarea"
+            class="form-control"
+          ></textarea>
+        </div>
+        <input type="hidden" name="student_id" value="{{student.id}}" />
+        <input type="hidden" name="student" value="{{student.add_no}}" />
+        <input type="hidden" name="mop" value="Concession" />
+        <button class="btn" type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Add Misc Fee -->
+  <!-- <section id="add-misc" class="hidden">
+    <div class="component-back add-concession">
+      <h2>Add Miscellaneous Fee</h2>
+      <form method="post" action="{% url 'fee:misc' %}">
+        {% csrf_token %}
+        <div class="concession-form-group">
+          <label for="fee-type">Miscellaneous Fee Type</label>
+          <select
+            name="fee-type"
+            id="miscellaneous-type"
+            class="form-control"
+          >
+            <option value="None" selected>Select Miscellaneous:</option>
+            <option value="Admission Fee">Admission Fee</option>
+            <option value="Late Fee">Late Fee</option>
+            <option value="Fine">Fine</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="concession-form-group">
+          <label for="miscellaneous-amount">Amount: </label>
+          <input
+            type="text"
+            name="amount"
+            id="miscellaneous-amount"
+            class="form-control"
+            placeholder="Amount"
+          />
+        </div>
+        <div class="concession-form-group">
+          <label for="miscellaneous-textarea">Reason: </label>
+          <textarea
+            name="reason"
+            id="miscellaneous-textarea"
+            class="form-control"
+          ></textarea>
+        </div>
+        <input type="hidden" name="student_id" value="{{student.id}}" />
+        <input type="hidden" name="student" value="{{student.add_no}}" />
+        {% comment %} <input type="hidden" name="mop" value="Concession" /> {% endcomment %}
+        <button class="btn" type="submit">Submit</button>
+      </form>
+    </div>
+  </section> -->
+
+  <!-- submitted fees by amount -->
+  <section id="submitted-fees">
+    <div class="submitted-fees">
+      <h2>Fees Submitted By Amount:</h2>
+      <div class="submitted-fee-table">
+        <table>
+          <tr>
+            <th>Transaction ID</th>
+            <th>Memo No.</th>
+            <th>Amount (in Rs.)</th>
+            <th>Mode Of Payment</th>
+            <th>Submitted Date</th>
+            <th class="outline-action">Action</th>
+          </tr>
+          {% for fee in fees %}
+          <tr>
+            <td><a href="#{{fee.txn_id}}">{{fee.txn_id}}</a></td>
+            <td>{{ fee.memo_no }}</td>
+            <td>{{ fee.amount }}.00</td>
+            <td>{{ fee.mop }}</td>
+            <td>{{ fee.submit_date }}</td>
+            <td class="outline-action">
+              <i
+                class="fas fa-trash-alt"
+                id="delete-fee-button"
+                onclick="deleteFee(event, {{fee.id}}, {{fee.amount}}, {{fee.student.id}})"
+              ></i>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- cheque details if any -->
+  {% if cheque_qs %}
+  <section id="submitted-fees">
+    <div class="submitted-fees">
+      <h2>Cheque Details:</h2>
+      <div class="submitted-fee-table">
+        <table>
+          <tr>
+            <th>Transaction ID</th>
+            <th>Cheque Number</th>
+            <th>Bank Name</th>
+            <th>Issued By</th>
+            <th>Issued Date</th>
+          </tr>
+          {% for cheque in cheque_qs %}
+          <tr id="{{cheque.fee_submit.txn_id}}">
+            <td>{{cheque.fee_submit.txn_id}}</td>
+            <td>{{cheque.cheque_no}}</td>
+            <td>{{cheque.bank}}</td>
+            <td>{{cheque.issued_by}}</td>
+            <td>{{cheque.issued_date}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- online details if any -->
+  {% if online_qs %}
+  <section id="submitted-fees">
+    <div class="submitted-fees">
+      <h2>Online/NEFT Details:</h2>
+      <div class="submitted-fee-table">
+        <table>
+          <tr>
+            <th>Transaction ID</th>
+            <th>UTR Number</th>
+            <th>Pay By</th>
+            <th>Pay Date</th>
+          </tr>
+          {% for online in online_qs %}
+          <tr id="{{online.fee_submit.txn_id}}">
+            <td>{{online.fee_submit.txn_id}}</td>
+            <td>{{online.utr_no}}</td>
+            <td>{{online.pay_by}}</td>
+            <td>{{online.pay_date}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- misc fee if any -->
+  {% if misc_qs %}
+  <section id="submitted-fees">
+    <div class="submitted-fees">
+      <h2>Miscellaneous Submitted Fees:</h2>
+      <div class="submitted-fee-table">
+        <table>
+          <tr>
+            <th>Fee Type</th>
+            <th>Amount</th>
+            <th>Paid Amount</th>
+            <th>Reason</th>
+            <th>Pay Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          {% for misc in misc_qs %}
+          <tr>
+            <td>{{misc.fee_type}}</td>
+            <td>{{misc.amount}}</td>
+            <td>{{misc.paid_amount}}</td>
+            <td>
+              {% if misc.reason %}
+              {{misc.reason}}
+              {% else %}
+              --
+              {% endif %}
+            </td>
+            <td>{{misc.date}}</td>
+            <td>
+              {% if misc.paid %}
+              Paid
+              {% else %}
+              Unpaid
+              {% endif %}
+            </td>
+            <td class="outline-action">
+              <i
+                class="fas fa-trash-alt"
+                id="delete-misc-button"
+                onclick="deleteMisc(event, {{misc.id}})"
+              ></i>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- submitted fees -->
+  <section id="submitted-fees">
+    <div class="submitted-fees">
+      <h2>Fees Submitted By Month:</h2>
+      <div class="submitted-fee-table">
+        <table>
+          <tr>
+            <th>Status</th>
+            <th>Month</th>
+            <th>Amount (in Rs.)</th>
+            <!-- <th>Submitted Date</th> -->
+          </tr>
+          {% for sub in sub_fees %} {% for month in m %} 
+          {% if forloop.counter == forloop.parentloop.counter %}
+          <tr>
+            <td><i class="fas fa-check-square"></i></td>
+            <td>{{ month }}</td>
+            <td>{{ sub.amount }}.00</td>
+            <td>{{ sub.date }}</td>
+          </tr>
+          {% endif %} {% endfor %} {% endfor %} 
+          {% for fee_struct in fee_struct_submitted_qs %}
+          <tr>
+            <td><i class="fas fa-check-square"></i></td>
+            <td>{{fee_struct.month.month}}</td>
+            <td>{{fee_struct.amount}}.00</td>
+          </tr>
+          {% endfor %} {% comment %}
+          <tr>
+            <td><i class="fas fa-check-square"></i></td>
+            <td>June</td>
+            <td>950.00</td>
+            <!-- <td>11/06/2020</td> -->
+          </tr>
+          {% endcomment %}
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- fees to be submitted -->
+  <section id="submit-fees">
+    <div class="submitted-fees">
+      <h2>Fees to be Submitted:</h2>
+      <div class="submitted-fee-table">
+        <table>
+          <tr>
+            <th>Status</th>
+            <th>Month</th>
+            <th>Amount (in Rs.)</th>
+          </tr>
+          {% comment %}
+          <tr>
+            <td>
+              <i class="fas fa-ban"></i>
+            </td>
+            <td>July</td>
+            <td>1200.00</td>
+            <td>15/07/2020</td>
+          </tr>
+          <tr>
+            <td>
+              <i class="fas fa-ban"></i>
+            </td>
+            <td>August</td>
+            <td>1350.00</td>
+            <td>15/08/2020</td>
+          </tr>
+          {% endcomment %} {% for fee_struct in fee_struct_left_qs %}
+          <tr>
+            <td>
+              <i class="fas fa-ban"></i>
+            </td>
+            <td>{{fee_struct.month.month}}</td>
+            <td>{{fee_struct.amount}}.00</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </section>
+  <section id="delete-stud">
+    <button class="btn" onclick="deleteStudent(event, {{student.id}})">Delete Student</button>
+  </section>
+</section>
+{% endblock content %} {% block script %}
+{% comment %} <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"
+  integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script> {% endcomment %}
+<script src="{% static 'js/axios.min.js' %}"></script>
+<script src="{% static 'js/concession.js' %}"></script>
+<script src="{% static 'js/deleteTrans.js' %}"></script>
+<script src="{% static 'js/printOutline.js' %}"></script>
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

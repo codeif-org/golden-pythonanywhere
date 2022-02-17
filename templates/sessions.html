@@ -1,0 +1,84 @@
+{% extends 'index.html' %} {% load static %} {% block title %} FMS | Sessions {% endblock title %} {% block extra_head %}
+<link rel="stylesheet" href="{% static '/css/sessions.css' %}" />
+{% endblock extra_head %} {% block content %}
+{% if messages %}
+    <script>
+      {% for message in messages %}
+        alert("{{ message }}");
+        location.reload();
+      {% endfor %}
+    </script>
+{% endif %}
+
+<section id="session-head">
+  <div class="component-back">
+    <h1>Sessions</h1>
+  </div>
+</section>
+
+<section id="session-info">
+  <div class="session-info">
+    <div class="current component-back">
+      <h2>
+        * Current Session:
+        <span class="faded">{{current.session.session}}</span>
+      </h2>
+      <p>Last Changed Date: <span class="faded">{{current.modified_date}}</span></p>
+    </div>
+    <div class="sessions-list">
+      <h2 class="component-back">Created Sessions:</h2>
+      <div class="sessions-list-name">
+        {% for session in sessions %}
+        <h2>
+          <span class="faded">{{forloop.counter}}.</span>
+          &nbsp;{{session.session}}
+        </h2>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="change-session">
+      <h2 class="component-back">Change Session:</h2>
+      <div class="change-session-input">
+        <select name="session-name" id="change-session-select">
+          <option value="" selected>Select Session</option>
+          {% for session in sessions %}
+          <option value="{{session.id}}">{{session.session}}</option>
+          {% endfor %}
+        </select>
+        <button class="btn" onclick="changeSession(event)">Change Session</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="add-session">
+  <div class="add-session">
+    <div class="add-session-head component-back">
+      <h1>Add New Session:</h1>
+      <p>*Adding a new session may cause some serious changes! Please follow the guidelines properly:</p>
+      <p>1. Take the whole backup and save it to some secure place.</p>
+      <p>2. Current Session students will be cloned to new session.</p>
+      <p>3. All current session students classes will be promoted to next class in new session, while the class of those students remains same in previous sessions.</p>
+      <p>4. Senior most students of current session won't be cloned to new session.</p>
+      <p>5. You can add/delete student in new session.</p>
+      <p>6. Fee Structure of previous session will be copied to new session and you can change the fee structure accordingly from fee structure section.</p>
+      <p>7. You cannot change the session name after creating! Please name it properly.</p>
+      <p>8. Please do not back/refresh while session change is in progress.</p>
+    </div>
+    <div class="add-session-input">
+      <input type="text" name="session-name" id="add-session-input" placeholder="Session Name" />
+      <button class="btn" onclick="addSession(event)">Add Session</button>
+    </div>
+  </div>
+</section>
+
+{% endblock content %} {% block script %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"
+  integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script src="{% static 'js/sessions.js' %}"></script>
+{% endblock script %}
+{% block activity_log %}{% endblock activity_log %}

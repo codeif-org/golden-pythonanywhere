@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  {% block head %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>{% block title %}FMS | Home{% endblock title %}</title>
+    
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- fontawesome -->
+    {% comment %} <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    /> {% endcomment %}
+    {% block css %}
+    <link rel="stylesheet" href="{% static '/css/all.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/style.css' %}" />
+    {% endblock css %}
+    {% block extra_head %}{% endblock extra_head %}
+  </head>
+  {% endblock head %}
+  <body>
+    <section id="main">
+      <!-- TOP NAVBAR -->
+      {% block top_nav %}
+      <section id="nav">
+        <nav class="top-navbar">
+          <div class="profile-picture">
+            <img src="{% static '/img/golden_heights.jpg' %}" />
+          </div>
+          <div class="school-name">
+            <h2>Golden Heights School</h2>
+            <h5 class="faded">E-Block, Yamuna Puram, Bulandshahr</h5>
+          </div>
+        </nav>
+      </section>
+      {% endblock top_nav %}
+      <!-- school image -->
+
+      {% block content %}
+      {% comment %} <section class="school-image">
+        <div><img src="{% static '/img/school.jpg' %}" /></div>
+      </section> {% endcomment %}
+      <section id="main-head" class="component-back">
+        <h2>Welcome to Codeif Fee Management System!</h2>
+      </section>
+      <!-- Home Menu List -->
+      {% comment %} <section id="home-menu">
+        <div class="home-menu">
+          <div class="home-menu-head">
+            <i class="fas fa-chevron-circle-right"></i>
+            <h2>Quick Links</h2>
+          </div>
+          <div class="menu-list">
+            <h3>Create homework</h3>
+            <a href="/createHomework.html"
+              ><button class="btn btn-md">Create</button></a
+            >
+          </div>
+          <div class="menu-list">
+            <h3>Start Attendance</h3>
+            <a href="/attendance.html"
+              ><button class="btn btn-md">Start</button></a
+            >
+          </div>
+        </div>
+      </section> {% endcomment %}
+
+      <!-- Go to section -->
+      <section id="goto">
+        <div class="goto">
+          <div class="goto-head">
+            <i class="fas fa-chevron-circle-right"></i>
+            <h2>Go to</h2>
+          </div>
+          <div class="goto-list">
+            <div class="goto-item">
+              <a href="{% url 'school:studentAdd' %}">
+                <div>
+                  <img src="{% static '/img/add-student.png' %}" alt="" />
+                  <h1>Add Student</h1>
+                </div>
+              </a>
+            </div>
+            {% comment %} <div class="goto-item">
+              <a href="/addStudents.html">
+                <div>
+                  <img src="{% static '/img/class.png' %}" alt="" />
+                  <h1>Student List</h1>
+                </div>
+              </a>
+            </div> {% endcomment %}
+            <div class="goto-item">
+              <a href="{% url 'fee:selectClass' %}">
+                <div>
+                  <img src="{% static '/img/fee-struct.png' %}" alt="" />
+                  <h1>Fee Structure</h1>
+                </div>
+              </a>
+            </div>
+            <div class="goto-item">
+              <a href="{% url 'school:students' %}">
+                <div>
+                  <img src="{% static '/img/class.png' %}" alt="" />
+                  <h1>Student Search</h1>
+                </div>
+              </a>
+            </div>
+            <div class="goto-item">
+              <a href="{% url 'fee:feeSubmit' %}">
+                <div>
+                  <img src="{% static '/img/submit-fee.png' %}" alt="" />
+                  <h1>Fee Submit</h1>
+                </div>
+              </a>
+            </div>
+            <div class="goto-item">
+              <a href="{% url 'reports:defaulters' %}">
+                <div>
+                  <img src="{% static '/img/defaulters.png' %}" alt="" />
+                  <h1>Defaulters List</h1>
+                </div>
+              </a>
+            </div>
+            <div class="goto-item">
+              <a href="{% url 'reports:generate' %}">
+                <div>
+                  <img src="{% static '/img/report.png' %}" alt="" />
+                  <h1>Reports</h1>
+                </div>
+              </a>
+            </div>
+            <div class="goto-item">
+              <a href="{% url 'school:sessions' %}">
+                <div>
+                  <img src="{% static '/img/session.png' %}" alt="" />
+                  <h1>Session</h1>
+                </div>
+              </a>
+            </div>
+            <div class="goto-item">
+              <a href="{% url 'reports:backup' %}">
+                <div>
+                  <img src="{% static '/img/backup.png' %}" alt="" />
+                  <h1>Backup</h1>
+                </div>
+              </a>
+            </div>
+            <div class="goto-item">
+              <a href="{% url 'school:logout' %}">
+                <div>
+                  <img src="{% static '/img/logout.png' %}" alt="" />
+                  <h1>Logout</h1>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% endblock content %}
+
+
+      <!-- BOTTOM NAVBAR -->
+      {% block bottom_nav %}
+      <section id="bottom-nav">
+        <nav class="bottom-navbar">
+          <div class="nav-links">
+            <div class="nav-button nav-current">
+              <a href="{% url 'school:dashboard' %}">
+                <img src="{% static '/img/home.png' %}" />
+                <h5 class="faded">Home</h5>
+              </a>
+            </div>
+            {% block activity_log %}
+            <div class="activity-log">
+              <div class="log-fee-submit">
+                <p>
+                  <span class="bolder">- Last Fee Submit:</span> Admission No.: 
+                  <span class="faded">{{last_fee_submit.student.add_no}}</span> | Name: 
+                  {{last_fee_submit.student.fname}} | Class: {{last_fee_submit.student.Class.clas}} | Amount: &#8377;{{last_fee_submit.amount}}.00/-
+                </p>
+              </div>
+              <div class="log-last-backup">
+                <p><span class="bolder">- Last Backup:</span> {{last_backup.time}}</p>
+              </div>
+              <!-- <div class="developed-by">
+                <p>- Developed and maintained by: Codeif Technologies Pvt. Ltd.</p>
+              </div> -->
+            </div>
+            {% endblock activity_log %}
+            <!-- <div class="nav-button">
+              <a href="/addNotice.html">
+                <img src="{% static '/img/notice.png' %}" />
+                <h5 class="faded">Notice</h5>
+              </a>
+            </div> -->
+            <!-- <div class="nav-button">
+              <a href="/homeworkTeacher.html">
+                <img src="{% static '/img/homework.png' %}" />
+                <h5 class="faded">Homework</h5>
+              </a>
+            </div> -->
+            <!-- <div class="nav-button">
+              <a href="/attendance.html">
+                <img src="{% static '/img/check.png' %}" />
+                <h5 class="faded">Attendance</h5>
+              </a>
+            </div> -->
+          </div>
+        </nav>
+      </section>
+      {% endblock bottom_nav %}
+    </section>
+    {% block script %}{% endblock script %}
+  </body>
+</html>
